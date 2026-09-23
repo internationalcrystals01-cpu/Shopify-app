@@ -1,0 +1,665 @@
+<section
+  id="career-job-list-{{ block.id }}"
+  class="career-job-list"
+  data-proxy-base="{{ block.settings.proxy_base | default: '/apps/careers' | escape }}"
+>
+  <div class="career-hero">
+    <div class="career-shell career-hero-inner">
+      <div class="career-hero-copy">
+        <p>Careers at {{ block.settings.brand_name | default: shop.name }}</p>
+        <h1>Build Your <span>Future</span> With Us</h1>
+        <div>{{ block.settings.subheading | default: 'Be part of a team that creates meaningful experiences and explores a better tomorrow.' }}</div>
+      </div>
+      <div class="career-hero-tags">
+        <strong><span>↗</span> Travel & Explore</strong>
+        <strong><span>♣</span> Work & Grow</strong>
+        <strong><span>♥</span> Make an Impact</strong>
+      </div>
+      <p class="career-hero-note">Great<br>People<br>Brighten<br>Tomorrows</p>
+    </div>
+  </div>
+
+  <div id="career-jobs-{{ block.id }}" class="career-shell career-content">
+    <div data-career-list-view>
+      <div class="career-search-panel">
+        <input data-career-search type="search" placeholder="Search jobs by title, department or keyword...">
+        <select data-career-department><option value="">All Departments</option></select>
+        <select data-career-location><option value="">All Locations</option></select>
+        <select data-career-type><option value="">All Job Types</option></select>
+        <button type="button" data-career-search-button>Search</button>
+      </div>
+
+      <div class="career-layout">
+        <main>
+          <h2><span data-career-count>0</span> Open Positions</h2>
+          <div class="career-jobs" data-career-jobs>
+            <article class="career-card career-job-card">
+              <div class="career-round-icon">...</div>
+              <div>
+                <h3>Loading jobs...</h3>
+                <p>Please wait while we load current openings.</p>
+              </div>
+            </article>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div class="career-detail-view" data-career-detail-view hidden>
+      <button type="button" class="career-back-button" data-career-back>&lt; Back to Jobs</button>
+
+      <div class="career-layout">
+        <main class="career-detail-main">
+          <div class="career-notice" data-career-notice hidden></div>
+          <div class="career-success-overlay" data-career-success-modal hidden>
+            <div class="career-success-modal" role="dialog" aria-modal="true" aria-labelledby="career-success-title-{{ block.id }}">
+              <span class="career-success-icon" aria-hidden="true">✓</span>
+              <h2 id="career-success-title-{{ block.id }}">Your application has been submitted.</h2>
+              <p>Thank you. We have received your application successfully.</p>
+            </div>
+          </div>
+
+          <article class="career-card career-job-summary">
+            <div>
+              <h2 data-detail-title>Loading job...</h2>
+              <div class="career-job-tags">
+                <span data-detail-department></span>
+                <span data-detail-type></span>
+                <span data-detail-location></span>
+                <span data-detail-shift></span>
+              </div>
+            </div>
+            <button type="button" class="career-apply-now" data-career-apply-now>↗ Apply Now</button>
+          </article>
+
+          <article class="career-card career-section">
+            <div class="career-section-heading">
+              <span class="career-small-icon">INFO</span>
+              <div>
+                <h2>Job Details</h2>
+                <p>Review this role before submitting your application.</p>
+              </div>
+            </div>
+
+            <div class="career-detail-grid">
+              <div class="career-detail-card">
+                <span class="career-detail-icon career-detail-icon-openings" aria-hidden="true">👥</span>
+                <strong>Openings</strong>
+                <span data-detail-openings></span>
+                <p>Join our team and make an impact.</p>
+              </div>
+              <div class="career-detail-card">
+                <span class="career-detail-icon career-detail-icon-experience" aria-hidden="true">▥</span>
+                <strong>Experience</strong>
+                <span data-detail-experience></span>
+                <p>Fresh talent is welcome!</p>
+              </div>
+              <div class="career-detail-card">
+                <span class="career-detail-icon career-detail-icon-qualification" aria-hidden="true">◇</span>
+                <strong>Qualification</strong>
+                <span data-detail-qualification></span>
+                <p>Relevant diploma or equivalent.</p>
+              </div>
+              <div class="career-detail-card">
+                <span class="career-detail-icon career-detail-icon-salary" aria-hidden="true">₹</span>
+                <strong>Salary</strong>
+                <span data-detail-salary></span>
+                <p>Based on skills and experience. The final salary will be discussed during the interview.</p>
+              </div>
+            </div>
+
+            <div class="career-rich-text" data-detail-block="jobAddress"><span class="career-small-icon">LO</span><div><h3>Address</h3><p data-detail-address></p></div></div>
+            <div class="career-rich-text" data-detail-block="jobDescription"><span class="career-small-icon">JD</span><div><h3>Job Description</h3><p data-detail-description></p></div></div>
+            <div class="career-rich-text" data-detail-block="jobResponsibilities"><span class="career-small-icon">RS</span><div><h3>Responsibilities</h3><p data-detail-responsibilities></p></div></div>
+            <div class="career-rich-text" data-detail-block="primaryRequirements"><span class="career-small-icon orange">RQ</span><div><h3>Requirements</h3><p data-detail-requirements></p></div></div>
+            <div class="career-rich-text" data-detail-block="preferredRequirements"><span class="career-small-icon">PR</span><div><h3>Preferred Requirements</h3><p data-detail-preferred></p></div></div>
+            <div class="career-rich-text" data-detail-block="benefits"><span class="career-small-icon orange">★</span><div><h3>Benefits</h3><p data-detail-benefits></p></div></div>
+          </article>
+
+          <form class="career-form" data-career-form enctype="multipart/form-data">
+            <article class="career-card career-section">
+              <div class="career-section-heading">
+                <span class="career-small-icon">PI</span>
+                <div>
+                  <h2>Personal Information</h2>
+                  <p>Tell us about yourself</p>
+                </div>
+              </div>
+
+              <div class="career-form-grid">
+                <label><span>Full Name <b>*</b></span><input name="fullName" type="text" placeholder="Enter your full name" required></label>
+                <label><span>Email Address <b>*</b></span><input name="email" type="email" placeholder="Enter your email address" required></label>
+                <label><span>Phone Number <b>*</b></span><input name="phone" type="tel" placeholder="+91 98765 43210" required></label>
+                <label><span>Current City / Location</span><input name="currentCity" type="text" placeholder="Enter your current city"></label>
+                <label><span>LinkedIn Profile</span><input name="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile"></label>
+              </div>
+            </article>
+
+            <article class="career-card career-section">
+              <div class="career-section-heading">
+                <span class="career-small-icon">PRO</span>
+                <div>
+                  <h2>Professional Information</h2>
+                  <p>Share your professional details</p>
+                </div>
+              </div>
+
+              <div class="career-form-grid">
+                <label>
+                  <span>Work Experience <b>*</b></span>
+                  <select name="experience" required>
+                    <option value="">Select experience</option>
+                    <option>Fresher</option>
+                    <option>1 Year</option>
+                    <option>2 Years</option>
+                    <option>3 Years</option>
+                    <option>4+ Years</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Highest Qualification <b>*</b></span>
+                  <select name="qualification" required>
+                    <option value="">Select qualification</option>
+                    <option>Diploma</option>
+                    <option>Bachelor's</option>
+                    <option>Master's</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label><span>Available Start Date <b>*</b></span><input name="availableStart" type="date" required></label>
+                <label>
+                  <span>Expected Salary <b>*</b></span>
+                  <span class="career-salary"><em>Rs</em><input name="expectedSalary" type="number" min="0" placeholder="Enter expected salary" required></span>
+                </label>
+                <label>
+                  <span>Salary Period</span>
+                  <select name="salaryType">
+                    <option>Per Month</option>
+                    <option>Per Year</option>
+                    <option>Per Hour</option>
+                  </select>
+                </label>
+                <label class="career-full"><span>Skills <b>*</b></span><input name="skills" type="text" placeholder="e.g. React, Node.js, JavaScript, UI/UX" required><small>Enter skills separated by commas</small></label>
+              </div>
+            </article>
+
+            <article class="career-card career-section">
+              <div class="career-section-heading">
+                <span class="career-small-icon">PDF</span>
+                <div>
+                  <h2>Resume <b>*</b></h2>
+                  <p>Upload your resume (PDF only)</p>
+                </div>
+              </div>
+
+              <div class="career-upload">
+                <input name="resume" type="file" accept="application/pdf" data-career-resume hidden>
+                <button type="button" data-career-resume-button>Upload PDF</button>
+                <strong>Drag and drop your resume here</strong>
+                <span>or click to browse</span>
+                <small>PDF only - Maximum file size: 5 MB</small>
+                <div class="career-file" data-career-file hidden>
+                  <span><strong data-career-file-name></strong><small data-career-file-size></small></span>
+                  <button type="button" data-career-file-remove>Remove</button>
+                </div>
+              </div>
+
+              <label class="career-consent">
+                <input name="consent" value="yes" type="checkbox" required>
+                <span>I confirm that the information provided above is correct and complete.</span>
+              </label>
+
+              <div class="career-submit">
+                <button type="submit" data-career-submit>Submit Application</button>
+                <small>By submitting this application, you agree to our Privacy Policy and Terms of Service.</small>
+              </div>
+            </article>
+          </form>
+        </main>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+  #career-job-list-{{ block.id }} { background: #f6f9fd; color: #071436; font-family: Inter, sans-serif; }
+  #career-job-list-{{ block.id }} * { box-sizing: border-box; }
+  #career-job-list-{{ block.id }} .career-hero { background: linear-gradient(90deg, rgba(238,247,255,.96), rgba(238,247,255,.7), rgba(238,247,255,.24)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center/cover; min-height: 270px; padding: 52px 20px 78px; }
+  #career-job-list-{{ block.id }} .career-shell { margin: 0 auto; max-width: 1180px; }
+  #career-job-list-{{ block.id }} .career-hero p { color: #33415f; font-size: 14px; font-weight: 800; letter-spacing: 4px; margin: 0 0 14px; text-transform: uppercase; }
+  #career-job-list-{{ block.id }} .career-hero h1 { color: #071436; font-size: 44px; font-weight: 850; line-height: 52px; margin: 0; max-width: 680px; }
+  #career-job-list-{{ block.id }} .career-hero span { color: #4b587c; display: block; font-size: 17px; line-height: 26px; margin-top: 12px; max-width: 560px; }
+  #career-job-list-{{ block.id }} .career-hero-tags { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 22px; }
+  #career-job-list-{{ block.id }} .career-content { padding: 0 20px 32px; }
+  #career-job-list-{{ block.id }} .career-search-panel { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 18px 44px rgba(15,23,42,.08); display: grid; gap: 14px; grid-template-columns: minmax(260px, 1fr) 170px 170px 170px 110px; margin-top: -40px; padding: 18px; }
+  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select, #career-job-list-{{ block.id }} textarea { background: #fff; border: 1px solid #cfd8e6; border-radius: 7px; color: #071436; font: inherit; font-size: 14px; outline: none; width: 100%; }
+  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select { height: 42px; padding: 0 14px; }
+  #career-job-list-{{ block.id }} textarea { min-height: 76px; padding: 11px; resize: vertical; }
+  #career-job-list-{{ block.id }} button, #career-job-list-{{ block.id }} .career-view-btn { align-items: center; background: #145de0; border: 0; border-radius: 7px; color: #fff; cursor: pointer; display: inline-flex; font: inherit; font-size: 14px; font-weight: 800; height: 42px; justify-content: center; padding: 0 18px; text-decoration: none; }
+  #career-job-list-{{ block.id }} .career-layout { align-items: start; display: grid; gap: 26px; grid-template-columns: minmax(0,1fr) 320px; margin-top: 22px; }
+  #career-job-list-{{ block.id }} [data-career-list-view] .career-layout { grid-template-columns: 1fr; }
+  #career-job-list-{{ block.id }} [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
+  #career-job-list-{{ block.id }} main h2 { font-size: 17px; margin: 0 0 12px; }
+  #career-job-list-{{ block.id }} .career-jobs, #career-job-list-{{ block.id }} .career-sidebar, #career-job-list-{{ block.id }} .career-detail-main, #career-job-list-{{ block.id }} .career-form { display: grid; gap: 12px; }
+  #career-job-list-{{ block.id }} .career-card { background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 14px 38px rgba(15,23,42,.04); }
+  #career-job-list-{{ block.id }} .career-job-card { align-items: center; display: grid; gap: 18px; grid-template-columns: minmax(0,1fr) auto; padding: 18px; }
+  #career-job-list-{{ block.id }} .career-round-icon, #career-job-list-{{ block.id }} .career-small-icon, #career-job-list-{{ block.id }} .career-benefit span { align-items: center; background: #eaf4ff; border-radius: 50%; color: #145de0; display: inline-flex; flex-shrink: 0; font-weight: 850; justify-content: center; }
+  #career-job-list-{{ block.id }} .career-round-icon { font-size: 16px; height: 64px; width: 64px; }
+  #career-job-list-{{ block.id }} .career-small-icon { border-radius: 8px; height: 38px; width: 38px; }
+  #career-job-list-{{ block.id }} h2, #career-job-list-{{ block.id }} h3 { color: #071436; font-weight: 850; margin: 0; }
+  #career-job-list-{{ block.id }} .career-job-card h3 { font-size: 18px; }
+  #career-job-list-{{ block.id }} p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 6px 0 0; }
+  #career-job-list-{{ block.id }} .career-job-meta, #career-job-list-{{ block.id }} .career-job-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  #career-job-list-{{ block.id }} .career-job-meta span, #career-job-list-{{ block.id }} .career-job-tags span { background: #f8fbff; border: 1px solid #d6dfec; border-radius: 6px; color: #293654; font-size: 13px; font-weight: 700; padding: 4px 10px; }
+  #career-job-list-{{ block.id }} .career-openings { background: #d9f8e8; border-radius: 999px; color: #047047; display: inline-flex; font-size: 13px; font-weight: 800; margin-bottom: 20px; padding: 7px 14px; }
+  #career-job-list-{{ block.id }} .career-side-card, #career-job-list-{{ block.id }} .career-section, #career-job-list-{{ block.id }} .career-job-summary { padding: 18px 22px; }
+  #career-job-list-{{ block.id }} .career-side-row, #career-job-list-{{ block.id }} .career-section-heading, #career-job-list-{{ block.id }} .career-job-summary { align-items: flex-start; display: flex; gap: 14px; }
+  #career-job-list-{{ block.id }} .career-benefit { display: flex; gap: 12px; margin-top: 18px; }
+  #career-job-list-{{ block.id }} .career-benefit span { height: 38px; width: 38px; }
+  #career-job-list-{{ block.id }} .career-safe { background: #eefcf6; border-color: #c8f2df; }
+  #career-job-list-{{ block.id }} .career-back-button { background: transparent; color: #145de0; height: auto; justify-content: flex-start; padding: 0; }
+  #career-job-list-{{ block.id }} .career-detail-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0,1fr)); margin: 18px 0 20px; }
+  #career-job-list-{{ block.id }} .career-detail-card { min-height: 174px; padding: 20px; border: 1px solid #deebfb; border-radius: 9px; background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%); box-shadow: 0 12px 28px rgba(20, 93, 224, .06); }
+  #career-job-list-{{ block.id }} .career-detail-card strong, #career-job-list-{{ block.id }} .career-detail-card span { display: block; }
+  #career-job-list-{{ block.id }} .career-detail-card strong { color: #68738e; font-size: 13px; font-weight: 800; margin: 14px 0 16px; }
+  #career-job-list-{{ block.id }} .career-detail-card > span:not(.career-detail-icon) { color: #071436; font-size: 18px; font-weight: 900; line-height: 23px; white-space: pre-line; }
+  #career-job-list-{{ block.id }} .career-detail-card p { color: #53617f; font-size: 13px; line-height: 18px; margin: 8px 0 0; }
+  #career-job-list-{{ block.id }} .career-detail-icon { align-items: center; display: inline-flex; height: 40px; justify-content: center; width: 40px; border-radius: 7px; font-size: 20px; font-weight: 900; }
+  #career-job-list-{{ block.id }} .career-detail-icon-openings { background: #dbf7e8; color: #089657; }
+  #career-job-list-{{ block.id }} .career-detail-icon-experience { background: #dff0ff; color: #2383ed; }
+  #career-job-list-{{ block.id }} .career-detail-icon-qualification { background: #eee6ff; color: #7c3aed; }
+  #career-job-list-{{ block.id }} .career-detail-icon-salary { background: #fff0dd; color: #e36b19; }
+  #career-job-list-{{ block.id }} .career-rich-text { border-top: 1px solid #e7eef7; padding-top: 14px; }
+  #career-job-list-{{ block.id }} .career-rich-text + .career-rich-text { margin-top: 14px; }
+  #career-job-list-{{ block.id }} .career-form-grid { display: grid; gap: 14px 26px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  #career-job-list-{{ block.id }} label { color: #071436; display: grid; font-size: 13px; font-weight: 800; gap: 7px; }
+  #career-job-list-{{ block.id }} b { color: #e11d2f; }
+  #career-job-list-{{ block.id }} .career-full { grid-column: 1 / -1; }
+  #career-job-list-{{ block.id }} small { color: #4b587c; font-size: 12px; font-weight: 500; }
+  #career-job-list-{{ block.id }} .career-count { text-align: right; }
+  #career-job-list-{{ block.id }} .career-salary { display: flex; }
+  #career-job-list-{{ block.id }} .career-salary em { align-items: center; background: #f8fbff; border: 1px solid #cfd8e6; border-radius: 7px 0 0 7px; border-right: 0; display: inline-flex; font-style: normal; font-weight: 800; justify-content: center; width: 42px; }
+  #career-job-list-{{ block.id }} .career-salary input { border-radius: 0 7px 7px 0; }
+  #career-job-list-{{ block.id }} .career-upload { background: #fbfdff; border: 1px dashed #9fb0c8; border-radius: 7px; display: grid; min-height: 142px; padding: 18px; place-items: center; text-align: center; }
+  #career-job-list-{{ block.id }} .career-upload > button { background: transparent; color: #145de0; }
+  #career-job-list-{{ block.id }} .career-file { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 7px; display: flex; justify-content: space-between; margin-top: 16px; padding: 10px 12px; text-align: left; width: 100%; }
+  #career-job-list-{{ block.id }} .career-file button { background: #fff; border: 1px solid #d6dfec; color: #071436; }
+  #career-job-list-{{ block.id }} .career-consent { align-items: flex-start; display: flex; font-weight: 500; gap: 9px; margin-top: 14px; }
+  #career-job-list-{{ block.id }} .career-consent input { height: 16px; margin-top: 2px; width: 16px; }
+  #career-job-list-{{ block.id }} .career-submit { display: grid; gap: 8px; justify-items: center; margin-top: 12px; }
+  #career-job-list-{{ block.id }} .career-submit button { width: min(290px,100%); }
+  #career-job-list-{{ block.id }} .career-notice { border-radius: 7px; font-size: 14px; font-weight: 700; padding: 12px 14px; }
+  #career-job-list-{{ block.id }} .career-notice.success { background: #ecfdf5; border: 1px solid #b5ead2; color: #08784f; }
+  #career-job-list-{{ block.id }} .career-notice.error { background: #fff1f2; border: 1px solid #fecdd3; color: #be123c; }
+  #career-job-list-{{ block.id }} .career-success-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 20px; background: rgba(7, 20, 54, .42); }
+  #career-job-list-{{ block.id }} .career-success-overlay[hidden] { display: none; }
+  #career-job-list-{{ block.id }} .career-success-modal { width: min(420px, 100%); padding: 30px 28px; border: 1px solid #b5ead2; border-radius: 10px; background: #fff; box-shadow: 0 28px 90px rgba(7, 20, 54, .28); text-align: center; }
+  #career-job-list-{{ block.id }} .career-success-icon { align-items: center; background: #dcfce7; border-radius: 50%; color: #15803d; display: inline-flex; font-size: 30px; font-weight: 900; height: 58px; justify-content: center; margin-bottom: 16px; width: 58px; }
+  #career-job-list-{{ block.id }} .career-success-modal h2 { color: #071436; font-size: 22px; font-weight: 850; line-height: 28px; margin: 0; }
+  #career-job-list-{{ block.id }} .career-success-modal p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 8px 0 0; }
+
+  #career-job-list-{{ block.id }} { background: radial-gradient(circle at 88% 35%, rgba(219, 234, 254, .72), transparent 34%), linear-gradient(180deg, #f7fbff 0%, #eef7ff 100%); color: #071436; min-height: 100vh; }
+  #career-job-list-{{ block.id }} .career-hero { background: linear-gradient(90deg, rgba(239,247,255,.98) 0%, rgba(230,241,255,.72) 42%, rgba(247,250,255,.10) 70%), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85") center 42%/cover; min-height: 210px; padding: 34px 20px 28px; }
+  #career-job-list-{{ block.id }} .career-hero-inner { position: relative; }
+  #career-job-list-{{ block.id }} .career-hero-copy { max-width: 760px; }
+  #career-job-list-{{ block.id }} .career-hero p:not(.career-hero-note) { color: #071436; font-size: 13px; font-weight: 950; letter-spacing: .24em; margin: 0 0 10px; text-transform: uppercase; }
+  #career-job-list-{{ block.id }} .career-hero h1 { color: #071436; font-size: clamp(34px, 5vw, 50px); font-weight: 950; letter-spacing: 0; line-height: 1.04; margin: 0; max-width: 720px; }
+  #career-job-list-{{ block.id }} .career-hero h1 span { color: #7765ff; display: inline; font-size: inherit; line-height: inherit; margin: 0; max-width: none; }
+  #career-job-list-{{ block.id }} .career-hero-copy > div { color: #465a86; font-size: 17px; line-height: 25px; margin-top: 13px; max-width: 610px; }
+  #career-job-list-{{ block.id }} .career-hero-tags { gap: 28px; margin-top: 18px; }
+  #career-job-list-{{ block.id }} .career-hero-tags strong { align-items: center; color: #071436; display: inline-flex; font-size: 13px; gap: 9px; }
+  #career-job-list-{{ block.id }} .career-hero-tags span { align-items: center; background: #e8f1ff; border-radius: 50%; color: #1769ff; display: inline-flex; font-size: 15px; height: 30px; justify-content: center; margin: 0; width: 30px; }
+  #career-job-list-{{ block.id }} .career-hero-note { color: #145de0; font-size: 16px; font-style: italic; font-weight: 900; line-height: 21px; position: absolute; right: 0; text-align: center; top: 28px; transform: rotate(-12deg); }
+  #career-job-list-{{ block.id }} .career-content { padding: 12px 20px 0; }
+  #career-job-list-{{ block.id }} .career-layout { gap: 18px; grid-template-columns: minmax(0, 1fr) 300px; margin-top: 12px; }
+  #career-job-list-{{ block.id }} [data-career-list-view] .career-layout, #career-job-list-{{ block.id }} [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
+  #career-job-list-{{ block.id }} .career-card { border-color: #dce8f7; border-radius: 10px; box-shadow: 0 18px 50px rgba(40, 86, 140, .07); }
+  #career-job-list-{{ block.id }} .career-back-button { color: #1769ff; font-size: 13px; font-weight: 900; margin-bottom: 10px; }
+  #career-job-list-{{ block.id }} .career-job-summary { align-items: center; display: grid; grid-template-columns: minmax(0,1fr) auto; margin-bottom: 12px; padding: 18px; }
+  #career-job-list-{{ block.id }} .career-job-summary h2 { font-size: 22px; line-height: 28px; margin: 0 0 6px; }
+  #career-job-list-{{ block.id }} .career-round-icon { background: #e5f6ff; color: #1797e8; font-size: 15px; height: 54px; width: 54px; }
+  #career-job-list-{{ block.id }} .career-job-tags { gap: 9px; margin-top: 7px; }
+  #career-job-list-{{ block.id }} .career-job-tags span { background: #f9fbff; border-color: #c9d9ef; border-radius: 7px; color: #1e315a; font-size: 12px; padding: 5px 14px; }
+  #career-job-list-{{ block.id }} .career-apply-now { background: #fff; border: 1px solid #1769ff; color: #1769ff; min-width: 150px; }
+  #career-job-list-{{ block.id }} .career-section { padding: 18px; }
+  #career-job-list-{{ block.id }} .career-section-heading { margin-bottom: 10px; }
+  #career-job-list-{{ block.id }} .career-small-icon { background: #eaf2ff; border-radius: 9px; color: #1769ff; font-size: 13px; height: 40px; width: 40px; }
+  #career-job-list-{{ block.id }} .career-small-icon.orange { background: #fff0df; color: #f97316; }
+  #career-job-list-{{ block.id }} .career-section-heading h2 { font-size: 18px; line-height: 24px; margin: 0; }
+  #career-job-list-{{ block.id }} .career-section-heading p { font-size: 13px; margin-top: 2px; }
+  #career-job-list-{{ block.id }} .career-detail-grid { gap: 12px; margin: 14px 0 0; }
+  #career-job-list-{{ block.id }} .career-detail-card { min-height: 170px; padding: 19px; }
+  #career-job-list-{{ block.id }} .career-detail-card strong { font-size: 13px; margin: 13px 0 17px; }
+  #career-job-list-{{ block.id }} .career-detail-card > span:not(.career-detail-icon) { font-size: 18px; font-weight: 950; line-height: 22px; }
+  #career-job-list-{{ block.id }} .career-rich-text { align-items: flex-start; border-top: 0; display: grid; gap: 14px; grid-template-columns: 42px minmax(0,1fr); margin-top: 14px; padding: 18px; }
+  #career-job-list-{{ block.id }} .career-rich-text h3 { font-size: 18px; line-height: 23px; margin-bottom: 4px; }
+  #career-job-list-{{ block.id }} .career-rich-text p { color: #334a75; font-size: 14px; line-height: 20px; white-space: pre-line; }
+  #career-job-list-{{ block.id }} .career-rich-text p::first-letter { text-transform: uppercase; }
+  #career-job-list-{{ block.id }} .career-form { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  #career-job-list-{{ block.id }} .career-form .career-section { align-self: start; }
+  #career-job-list-{{ block.id }} .career-form .career-section { grid-column: 1 / -1; }
+  #career-job-list-{{ block.id }} .career-form-grid { gap: 12px 24px; }
+  #career-job-list-{{ block.id }} label { font-size: 12px; gap: 6px; }
+  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select, #career-job-list-{{ block.id }} textarea { border-color: #cbd9ed; border-radius: 6px; font-size: 13px; }
+  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select { height: 34px; padding: 0 12px; }
+  #career-job-list-{{ block.id }} textarea { min-height: 94px; }
+  #career-job-list-{{ block.id }} .career-upload { min-height: 130px; }
+  #career-job-list-{{ block.id }} .career-submit button { background: #1769ff; border-radius: 8px; height: 38px; width: 230px; }
+  #career-job-list-{{ block.id }} .career-side-card { padding: 22px; }
+  #career-job-list-{{ block.id }} .career-help-card a { align-items: center; border: 1px solid #1769ff; border-radius: 7px; color: #1769ff; display: inline-flex; font-size: 13px; font-weight: 900; height: 36px; justify-content: center; margin-top: 14px; padding: 0 22px; text-decoration: none; width: 100%; }
+  #career-job-list-{{ block.id }} .career-safe { background: #effdf7; border-color: #c8f2df; }
+  #career-job-list-{{ block.id }} .career-quote-card { background: radial-gradient(circle at 88% 28%, rgba(226, 214, 255, .92), transparent 31%), #f7fbff; min-height: 190px; padding: 28px; }
+  #career-job-list-{{ block.id }} .career-quote-card strong { color: #6296ff; display: block; font-size: 42px; height: 28px; line-height: 32px; }
+  #career-job-list-{{ block.id }} .career-quote-card h3 { font-size: 22px; line-height: 30px; margin-top: 12px; }
+  #career-job-list-{{ block.id }} .career-benefit span { border-radius: 9px; font-size: 14px; height: 38px; width: 38px; }
+  #career-job-list-{{ block.id }} .career-benefit strong { color: #071436; font-size: 14px; }
+  #career-job-list-{{ block.id }} .career-benefit p { font-size: 12px; margin-top: 2px; }
+  @media (max-width: 980px) { #career-job-list-{{ block.id }} .career-search-panel, #career-job-list-{{ block.id }} .career-layout { grid-template-columns: 1fr; } #career-job-list-{{ block.id }} .career-detail-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 720px) { #career-job-list-{{ block.id }} .career-hero h1 { font-size: 34px; line-height: 40px; } #career-job-list-{{ block.id }} .career-hero-note { display: none; } #career-job-list-{{ block.id }} .career-job-card, #career-job-list-{{ block.id }} .career-form, #career-job-list-{{ block.id }} .career-form-grid, #career-job-list-{{ block.id }} .career-detail-grid, #career-job-list-{{ block.id }} .career-job-summary { grid-template-columns: 1fr; } #career-job-list-{{ block.id }} .career-full { grid-column: auto; } #career-job-list-{{ block.id }} .career-apply-now { width: 100%; } }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById("career-job-list-{{ block.id }}");
+    if (!root) return;
+
+    const proxyBase = root.dataset.proxyBase || "/apps/careers";
+    const listView = root.querySelector("[data-career-list-view]");
+    const detailView = root.querySelector("[data-career-detail-view]");
+    const jobsWrap = root.querySelector("[data-career-jobs]");
+    const count = root.querySelector("[data-career-count]");
+    const searchInput = root.querySelector("[data-career-search]");
+    const departmentSelect = root.querySelector("[data-career-department]");
+    const locationSelect = root.querySelector("[data-career-location]");
+    const typeSelect = root.querySelector("[data-career-type]");
+    const searchButton = root.querySelector("[data-career-search-button]");
+    const form = root.querySelector("[data-career-form]");
+    const notice = root.querySelector("[data-career-notice]");
+    const successModal = root.querySelector("[data-career-success-modal]");
+    const submitButton = root.querySelector("[data-career-submit]");
+    const applyNowButton = root.querySelector("[data-career-apply-now]");
+    const resumeInput = root.querySelector("[data-career-resume]");
+    const resumeButton = root.querySelector("[data-career-resume-button]");
+    const resumeFile = root.querySelector("[data-career-file]");
+    const resumeFileName = root.querySelector("[data-career-file-name]");
+    const resumeFileSize = root.querySelector("[data-career-file-size]");
+    const resumeRemove = root.querySelector("[data-career-file-remove]");
+    let jobs = [];
+    let activeJobId = "";
+
+    const escapeHtml = (value) => {
+      const element = document.createElement("div");
+      element.textContent = value || "";
+      return element.innerHTML;
+    };
+    const getInitials = (value) => String(value || "Job").split(" ").filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+    const uniqueValues = (field) => [...new Set(jobs.map((job) => job[field]).filter(Boolean))].sort();
+    const showNotice = (message, type) => {
+      notice.textContent = message;
+      notice.className = `career-notice ${type}`;
+      notice.hidden = false;
+    };
+    const showSuccessModal = () => {
+      if (!successModal) return;
+      successModal.hidden = false;
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    };
+    const hideSuccessModal = () => {
+      if (!successModal) return;
+      successModal.hidden = true;
+    };
+    const setText = (selector, value) => {
+      const element = root.querySelector(selector);
+      if (element) element.textContent = value || "Not provided";
+    };
+    const setDetailBlock = (name, value) => {
+      const element = root.querySelector(`[data-detail-block="${name}"]`);
+      if (element) element.hidden = !value;
+    };
+    const formatFileSize = (size) => `${Math.ceil(size / 1024)} KB`;
+    const currencySymbols = {
+      AED: "د.إ", AFN: "؋", ALL: "L", AMD: "֏", ANG: "ƒ", ARS: "$", AUD: "$", AZN: "₼",
+      BAM: "KM", BDT: "৳", BGN: "лв", BHD: ".د.ب", BND: "$", BOB: "Bs", BRL: "R$",
+      CAD: "$", CHF: "CHF", CLP: "$", CNY: "¥", COP: "$", CRC: "₡", CZK: "Kč",
+      DKK: "kr", DOP: "RD$", DZD: "د.ج", EGP: "£", ETB: "Br", EUR: "€", GBP: "£",
+      GEL: "₾", GHS: "₵", HKD: "$", HUF: "Ft", IDR: "Rp", ILS: "₪", INR: "₹",
+      IQD: "ع.د", JPY: "¥", KES: "KSh", KRW: "₩", KWD: "د.ك", KZT: "₸",
+      LKR: "Rs", MAD: "د.م.", MMK: "K", MUR: "₨", MXN: "$", MYR: "RM", NGN: "₦",
+      NOK: "kr", NPR: "₨", NZD: "$", OMR: "ر.ع.", PEN: "S/", PHP: "₱", PKR: "₨",
+      PLN: "zł", QAR: "ر.ق", RON: "lei", RSD: "дин", RUB: "₽", SAR: "﷼",
+      SEK: "kr", SGD: "$", THB: "฿", TRY: "₺", TWD: "NT$", UAH: "₴", USD: "$",
+      VND: "₫", XAF: "FCFA", XOF: "CFA", ZAR: "R"
+    };
+    const formatSalary = (job) => {
+      const currencySymbol = currencySymbols[job.currency] || job.currency || "";
+      const minimumSalary = Number(job.minimumSalary || 0);
+      const maximumSalary = Number(job.maximumSalary || 0);
+      const formatAmount = (value) => `${currencySymbol}${Number(value).toLocaleString("en-IN")}`;
+      const period = String(job.paymentType || job.salaryType || "").toLowerCase();
+
+      if (minimumSalary || maximumSalary) {
+        const salaryRange =
+          minimumSalary && maximumSalary
+            ? `${formatAmount(minimumSalary)} - ${formatAmount(maximumSalary)}`
+            : formatAmount(minimumSalary || maximumSalary);
+
+        return `${salaryRange}${period ? `\n${period}` : ""}`;
+      }
+
+      return "Not provided";
+    };
+
+    const setOptions = (select, values) => {
+      const first = select.options[0];
+      select.innerHTML = "";
+      select.appendChild(first);
+      values.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    };
+
+    const matchesSearch = (job, search) => {
+      if (!search) return true;
+
+      const values = [
+        job.jobTitle,
+        job.department,
+        job.location,
+        job.jobAddress,
+        job.employmentType,
+        job.shiftSchedule,
+        job.qualification,
+        job.workExperience,
+      ]
+        .filter(Boolean)
+        .map((value) => String(value).toLowerCase());
+      const words = values.flatMap((value) =>
+        value.split(/[\s,/-]+/).filter(Boolean)
+      );
+      const initials = words.map((word) => word[0]).join("");
+
+      return (
+        values.some((value) => value.startsWith(search)) ||
+        words.some((word) => word.startsWith(search)) ||
+        initials.startsWith(search)
+      );
+    };
+
+    const renderJobs = () => {
+      const search = searchInput.value.trim().toLowerCase();
+      const department = departmentSelect.value;
+      const location = locationSelect.value;
+      const type = typeSelect.value;
+      const filteredJobs = jobs.filter((job) => {
+        return matchesSearch(job, search) && (!department || job.department === department) && (!location || job.location === location) && (!type || job.employmentType === type);
+      });
+
+      count.textContent = filteredJobs.length;
+      if (filteredJobs.length === 0) {
+        jobsWrap.innerHTML = `<article class="career-card career-job-card"><div class="career-round-icon">0</div><div><h3>No open positions found</h3><p>Try changing your search or filters.</p></div></article>`;
+        return;
+      }
+
+      jobsWrap.innerHTML = filteredJobs.map((job) => `
+        <article class="career-card career-job-card">
+          <div>
+            <h3>${escapeHtml(job.jobTitle)}</h3>
+            <p>${escapeHtml(job.department)}</p>
+            <div class="career-job-meta">
+              <span>${escapeHtml(job.employmentType)}</span>
+              <span>${escapeHtml(job.location)}</span>
+              <span>${escapeHtml(job.shiftSchedule)}</span>
+            </div>
+          </div>
+          <div>
+            <span class="career-openings">${Number(job.numberOfOpenings || 1)} ${Number(job.numberOfOpenings || 1) === 1 ? "Opening" : "Openings"}</span>
+            <button type="button" class="career-view-btn" data-career-view-job="${escapeHtml(job.id)}">View Details -&gt;</button>
+          </div>
+        </article>
+      `).join("");
+    };
+
+    const showJobDetail = async (jobId) => {
+      notice.hidden = true;
+      activeJobId = jobId;
+      const response = await fetch(`${proxyBase}/job/${jobId}`);
+      const payload = await response.json();
+      if (!response.ok || !payload.job) throw new Error(payload.error || "Job not found.");
+      const job = payload.job;
+      setText("[data-detail-title]", job.jobTitle);
+      setText("[data-detail-department]", job.department);
+      setText("[data-detail-type]", job.employmentType);
+      setText("[data-detail-location]", job.location);
+      setText("[data-detail-shift]", job.shiftSchedule);
+      setText("[data-detail-openings]", `${Number(job.numberOfOpenings || 1)} ${Number(job.numberOfOpenings || 1) === 1 ? "Opening" : "Openings"}`);
+      setText("[data-detail-experience]", job.workExperience);
+      setText("[data-detail-qualification]", job.qualification);
+      setText("[data-detail-salary]", formatSalary(job));
+      setText("[data-detail-address]", job.jobAddress);
+      setText("[data-detail-description]", job.jobDescription);
+      setText("[data-detail-responsibilities]", job.jobResponsibilities);
+      setText("[data-detail-requirements]", job.primaryRequirements);
+      setText("[data-detail-preferred]", job.preferredRequirements);
+      setText("[data-detail-benefits]", job.benefits);
+      setDetailBlock("jobAddress", job.jobAddress);
+      setDetailBlock("jobDescription", job.jobDescription);
+      setDetailBlock("jobResponsibilities", job.jobResponsibilities);
+      setDetailBlock("primaryRequirements", job.primaryRequirements);
+      setDetailBlock("preferredRequirements", job.preferredRequirements);
+      setDetailBlock("benefits", job.benefits);
+      listView.hidden = true;
+      detailView.hidden = false;
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    fetch(`${proxyBase}/jobs`).then((response) => response.json()).then((payload) => {
+      jobs = payload.jobs || [];
+      setOptions(departmentSelect, uniqueValues("department"));
+      setOptions(locationSelect, uniqueValues("location"));
+      setOptions(typeSelect, uniqueValues("employmentType"));
+      renderJobs();
+    }).catch(() => {
+      count.textContent = "0";
+      jobsWrap.innerHTML = `<article class="career-card career-job-card"><div class="career-round-icon">!</div><div><h3>Unable to load jobs</h3><p>Please try again later.</p></div></article>`;
+    });
+
+    jobsWrap.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-career-view-job]");
+      if (!button) return;
+      showJobDetail(button.dataset.careerViewJob).catch((error) => alert(error.message || "Unable to load job details."));
+    });
+
+    root.querySelector("[data-career-back]").addEventListener("click", () => {
+      detailView.hidden = true;
+      listView.hidden = false;
+      notice.hidden = true;
+      form.reset();
+      resumeFile.hidden = true;
+    });
+
+    searchInput.addEventListener("input", renderJobs);
+    departmentSelect.addEventListener("change", renderJobs);
+    locationSelect.addEventListener("change", renderJobs);
+    typeSelect.addEventListener("change", renderJobs);
+    searchButton.addEventListener("click", renderJobs);
+    successModal?.addEventListener("click", (event) => {
+      if (event.target === successModal) hideSuccessModal();
+    });
+    applyNowButton.addEventListener("click", () => {
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    resumeButton.addEventListener("click", () => resumeInput.click());
+    resumeInput.addEventListener("change", () => {
+      const file = resumeInput.files[0];
+      if (!file) { resumeFile.hidden = true; return; }
+      if (file.type !== "application/pdf") { showNotice("Resume must be a PDF file.", "error"); resumeInput.value = ""; resumeFile.hidden = true; return; }
+      if (file.size > 5 * 1024 * 1024) { showNotice("Resume exceeds the 5 MB file size limit.", "error"); resumeInput.value = ""; resumeFile.hidden = true; return; }
+      resumeFileName.textContent = file.name;
+      resumeFileSize.textContent = formatFileSize(file.size);
+      resumeFile.hidden = false;
+    });
+    resumeRemove.addEventListener("click", () => { resumeInput.value = ""; resumeFile.hidden = true; });
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      notice.hidden = true;
+      if (!resumeInput.files[0]) {
+        showNotice("Please upload your resume PDF.", "error");
+        return;
+      }
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+      try {
+        const response = await fetch(`${proxyBase}/apply/${activeJobId}`, { method: "POST", body: new FormData(form) });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error || "Application could not be submitted.");
+        form.reset();
+        resumeFile.hidden = true;
+        showSuccessModal();
+      } catch (error) {
+        showNotice(error.message || "Application could not be submitted.", "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Application";
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Career Job List",
+  "target": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "Shabdd"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build Your Future With Us"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Be part of a team that creates meaningful experiences and explores a better tomorrow."
+    },
+    {
+      "type": "text",
+      "id": "proxy_base",
+      "label": "App proxy base path",
+      "default": "/apps/careers"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mongodb-js/saslprep": "^1.5.4",
+    "mongodb": "^7.6.0"
+  }
+}

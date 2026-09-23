@@ -1,0 +1,12 @@
+import { redirect } from "react-router";
+
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const search = url.searchParams.toString();
+
+  return redirect(`/app/job-list${search ? `?${search}` : ""}`);
+};
+
+export default function Index() {
+  return null;
+}
