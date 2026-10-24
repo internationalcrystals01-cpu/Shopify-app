@@ -4,34 +4,38 @@
   data-proxy-base="{{ block.settings.proxy_base | default: '/apps/careers' | escape }}"
 >
   <div class="career-hero">
+    {% if block.settings.banner_image != blank %}
+      {{ block.settings.banner_image | image_url: width: 2400 | image_tag: class: 'career-hero-image', widths: '600, 900, 1200, 1800, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
+    {% else %}
+      <img class="career-hero-image" src="{{ 'career-gemstone-hero.png' | asset_url }}" alt="" width="2171" height="724" fetchpriority="high">
+    {% endif %}
     <div class="career-shell career-hero-inner">
       <div class="career-hero-copy">
-        <p>Careers at {{ block.settings.brand_name | default: shop.name }}</p>
-        <h1>Build Your <span>Future</span> With Us</h1>
-        <div>{{ block.settings.subheading | default: 'Be part of a team that creates meaningful experiences and explores a better tomorrow.' }}</div>
+        <p>{{ block.settings.eyebrow | escape }}</p>
+        <h1>{{ block.settings.heading | escape }}</h1>
+        <div>{{ block.settings.subheading | escape | newline_to_br }}</div>
       </div>
       <div class="career-hero-tags">
-        <strong><span>↗</span> Travel & Explore</strong>
-        <strong><span>♣</span> Work & Grow</strong>
-        <strong><span>♥</span> Make an Impact</strong>
+        <div class="career-hero-feature">{% render 'career-icon', name: 'gem' %}<div><strong>{{ block.settings.feature_1_title | escape }}</strong><span>{{ block.settings.feature_1_text | escape }}</span></div></div>
+        <div class="career-hero-feature">{% render 'career-icon', name: 'people' %}<div><strong>{{ block.settings.feature_2_title | escape }}</strong><span>{{ block.settings.feature_2_text | escape }}</span></div></div>
+        <div class="career-hero-feature">{% render 'career-icon', name: 'globe' %}<div><strong>{{ block.settings.feature_3_title | escape }}</strong><span>{{ block.settings.feature_3_text | escape }}</span></div></div>
       </div>
-      <p class="career-hero-note">Great<br>People<br>Brighten<br>Tomorrows</p>
     </div>
   </div>
 
   <div id="career-jobs-{{ block.id }}" class="career-shell career-content">
     <div data-career-list-view>
       <div class="career-search-panel">
-        <input data-career-search type="search" placeholder="Search jobs by title, department or keyword...">
-        <select data-career-department><option value="">All Departments</option></select>
-        <select data-career-location><option value="">All Locations</option></select>
-        <select data-career-type><option value="">All Job Types</option></select>
+        <div class="career-search-field">{% render 'career-icon', name: 'search' %}<input data-career-search type="search" aria-label="Search jobs" placeholder="Search jobs by title, department or keyword..."></div>
+        <select data-career-department aria-label="Filter by department"><option value="">All Departments</option></select>
+        <select data-career-location aria-label="Filter by location"><option value="">All Locations</option></select>
+        <select data-career-type aria-label="Filter by type"><option value="">All Job Types</option></select>
         <button type="button" data-career-search-button>Search</button>
       </div>
 
       <div class="career-layout">
         <main>
-          <h2><span data-career-count>0</span> Open Positions</h2>
+          <h2 class="career-positions-heading"><span data-career-count>0</span> <span data-career-positions-label>Open Positions</span></h2>
           <div class="career-jobs" data-career-jobs>
             <article class="career-card career-job-card">
               <div class="career-round-icon">...</div>
@@ -46,7 +50,9 @@
     </div>
 
     <div class="career-detail-view" data-career-detail-view hidden>
-      <button type="button" class="career-back-button" data-career-back>&lt; Back to Jobs</button>
+      <div class="career-detail-navigation">
+        <button type="button" class="career-back-button" data-career-back>&larr; Back to Jobs</button>
+      </div>
 
       <div class="career-layout">
         <main class="career-detail-main">
@@ -129,7 +135,7 @@
               <div class="career-form-grid">
                 <label><span>Full Name <b>*</b></span><input name="fullName" type="text" placeholder="Enter your full name" required></label>
                 <label><span>Email Address <b>*</b></span><input name="email" type="email" placeholder="Enter your email address" required></label>
-                <label><span>Phone Number <b>*</b></span><input name="phone" type="tel" placeholder="+91 98765 43210" required></label>
+                <label><span>Phone Number <b>*</b></span><input name="phone" type="tel" placeholder="+91 99999 99999" required></label>
                 <label><span>Current City / Location</span><input name="currentCity" type="text" placeholder="Enter your current city"></label>
                 <label><span>LinkedIn Profile</span><input name="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile"></label>
               </div>
@@ -220,150 +226,159 @@
     </div>
   </div>
 
+  </div>
 </section>
 
 <style>
-  #career-job-list-{{ block.id }} { background: #f6f9fd; color: #071436; font-family: Inter, sans-serif; }
-  #career-job-list-{{ block.id }} * { box-sizing: border-box; }
-  #career-job-list-{{ block.id }} .career-hero { background: linear-gradient(90deg, rgba(238,247,255,.96), rgba(238,247,255,.7), rgba(238,247,255,.24)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center/cover; min-height: 270px; padding: 52px 20px 78px; }
-  #career-job-list-{{ block.id }} .career-shell { margin: 0 auto; max-width: 1180px; }
-  #career-job-list-{{ block.id }} .career-hero p { color: #33415f; font-size: 14px; font-weight: 800; letter-spacing: 4px; margin: 0 0 14px; text-transform: uppercase; }
-  #career-job-list-{{ block.id }} .career-hero h1 { color: #071436; font-size: 44px; font-weight: 850; line-height: 52px; margin: 0; max-width: 680px; }
-  #career-job-list-{{ block.id }} .career-hero span { color: #4b587c; display: block; font-size: 17px; line-height: 26px; margin-top: 12px; max-width: 560px; }
-  #career-job-list-{{ block.id }} .career-hero-tags { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 22px; }
-  #career-job-list-{{ block.id }} .career-content { padding: 0 20px 32px; }
-  #career-job-list-{{ block.id }} .career-search-panel { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 18px 44px rgba(15,23,42,.08); display: grid; gap: 14px; grid-template-columns: minmax(260px, 1fr) 170px 170px 170px 110px; margin-top: -40px; padding: 18px; }
-  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select, #career-job-list-{{ block.id }} textarea { background: #fff; border: 1px solid #cfd8e6; border-radius: 7px; color: #071436; font: inherit; font-size: 14px; outline: none; width: 100%; }
-  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select { height: 42px; padding: 0 14px; }
-  #career-job-list-{{ block.id }} textarea { min-height: 76px; padding: 11px; resize: vertical; }
-  #career-job-list-{{ block.id }} button, #career-job-list-{{ block.id }} .career-view-btn { align-items: center; background: #145de0; border: 0; border-radius: 7px; color: #fff; cursor: pointer; display: inline-flex; font: inherit; font-size: 14px; font-weight: 800; height: 42px; justify-content: center; padding: 0 18px; text-decoration: none; }
-  #career-job-list-{{ block.id }} .career-layout { align-items: start; display: grid; gap: 26px; grid-template-columns: minmax(0,1fr) 320px; margin-top: 22px; }
-  #career-job-list-{{ block.id }} [data-career-list-view] .career-layout { grid-template-columns: 1fr; }
-  #career-job-list-{{ block.id }} [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
-  #career-job-list-{{ block.id }} main h2 { font-size: 17px; margin: 0 0 12px; }
-  #career-job-list-{{ block.id }} .career-jobs, #career-job-list-{{ block.id }} .career-sidebar, #career-job-list-{{ block.id }} .career-detail-main, #career-job-list-{{ block.id }} .career-form { display: grid; gap: 12px; }
-  #career-job-list-{{ block.id }} .career-card { background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 14px 38px rgba(15,23,42,.04); }
-  #career-job-list-{{ block.id }} .career-job-card { align-items: center; display: grid; gap: 18px; grid-template-columns: minmax(0,1fr) auto; padding: 18px; }
-  #career-job-list-{{ block.id }} .career-round-icon, #career-job-list-{{ block.id }} .career-small-icon, #career-job-list-{{ block.id }} .career-benefit span { align-items: center; background: #eaf4ff; border-radius: 50%; color: #145de0; display: inline-flex; flex-shrink: 0; font-weight: 850; justify-content: center; }
-  #career-job-list-{{ block.id }} .career-round-icon { font-size: 16px; height: 64px; width: 64px; }
-  #career-job-list-{{ block.id }} .career-small-icon { border-radius: 8px; height: 38px; width: 38px; }
-  #career-job-list-{{ block.id }} h2, #career-job-list-{{ block.id }} h3 { color: #071436; font-weight: 850; margin: 0; }
-  #career-job-list-{{ block.id }} .career-job-card h3 { font-size: 18px; }
-  #career-job-list-{{ block.id }} p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 6px 0 0; }
-  #career-job-list-{{ block.id }} .career-job-meta, #career-job-list-{{ block.id }} .career-job-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-  #career-job-list-{{ block.id }} .career-job-meta span, #career-job-list-{{ block.id }} .career-job-tags span { background: #f8fbff; border: 1px solid #d6dfec; border-radius: 6px; color: #293654; font-size: 13px; font-weight: 700; padding: 4px 10px; }
-  #career-job-list-{{ block.id }} .career-openings { background: #d9f8e8; border-radius: 999px; color: #047047; display: inline-flex; font-size: 13px; font-weight: 800; margin-bottom: 20px; padding: 7px 14px; }
-  #career-job-list-{{ block.id }} .career-side-card, #career-job-list-{{ block.id }} .career-section, #career-job-list-{{ block.id }} .career-job-summary { padding: 18px 22px; }
-  #career-job-list-{{ block.id }} .career-side-row, #career-job-list-{{ block.id }} .career-section-heading, #career-job-list-{{ block.id }} .career-job-summary { align-items: flex-start; display: flex; gap: 14px; }
-  #career-job-list-{{ block.id }} .career-benefit { display: flex; gap: 12px; margin-top: 18px; }
-  #career-job-list-{{ block.id }} .career-benefit span { height: 38px; width: 38px; }
-  #career-job-list-{{ block.id }} .career-safe { background: #eefcf6; border-color: #c8f2df; }
-  #career-job-list-{{ block.id }} .career-back-button { background: transparent; color: #145de0; height: auto; justify-content: flex-start; padding: 0; }
-  #career-job-list-{{ block.id }} .career-detail-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0,1fr)); margin: 18px 0 20px; }
-  #career-job-list-{{ block.id }} .career-detail-card { min-height: 174px; padding: 20px; border: 1px solid #deebfb; border-radius: 9px; background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%); box-shadow: 0 12px 28px rgba(20, 93, 224, .06); }
-  #career-job-list-{{ block.id }} .career-detail-card strong, #career-job-list-{{ block.id }} .career-detail-card span { display: block; }
-  #career-job-list-{{ block.id }} .career-detail-card strong { color: #68738e; font-size: 13px; font-weight: 800; margin: 14px 0 16px; }
-  #career-job-list-{{ block.id }} .career-detail-card > span:not(.career-detail-icon) { color: #071436; font-size: 18px; font-weight: 900; line-height: 23px; white-space: pre-line; }
-  #career-job-list-{{ block.id }} .career-detail-card p { color: #53617f; font-size: 13px; line-height: 18px; margin: 8px 0 0; }
-  #career-job-list-{{ block.id }} .career-detail-icon { align-items: center; display: inline-flex; height: 40px; justify-content: center; width: 40px; border-radius: 7px; font-size: 20px; font-weight: 900; }
-  #career-job-list-{{ block.id }} .career-detail-icon-openings { background: #dbf7e8; color: #089657; }
-  #career-job-list-{{ block.id }} .career-detail-icon-experience { background: #dff0ff; color: #2383ed; }
-  #career-job-list-{{ block.id }} .career-detail-icon-qualification { background: #eee6ff; color: #7c3aed; }
-  #career-job-list-{{ block.id }} .career-detail-icon-salary { background: #fff0dd; color: #e36b19; }
-  #career-job-list-{{ block.id }} .career-rich-text { border-top: 1px solid #e7eef7; padding-top: 14px; }
-  #career-job-list-{{ block.id }} .career-rich-text + .career-rich-text { margin-top: 14px; }
-  #career-job-list-{{ block.id }} .career-form-grid { display: grid; gap: 14px 26px; grid-template-columns: repeat(2, minmax(0,1fr)); }
-  #career-job-list-{{ block.id }} label { color: #071436; display: grid; font-size: 13px; font-weight: 800; gap: 7px; }
-  #career-job-list-{{ block.id }} b { color: #e11d2f; }
-  #career-job-list-{{ block.id }} .career-full { grid-column: 1 / -1; }
-  #career-job-list-{{ block.id }} small { color: #4b587c; font-size: 12px; font-weight: 500; }
-  #career-job-list-{{ block.id }} .career-count { text-align: right; }
-  #career-job-list-{{ block.id }} .career-salary { display: flex; }
-  #career-job-list-{{ block.id }} .career-salary em { align-items: center; background: #f8fbff; border: 1px solid #cfd8e6; border-radius: 7px 0 0 7px; border-right: 0; display: inline-flex; font-style: normal; font-weight: 800; justify-content: center; width: 42px; }
-  #career-job-list-{{ block.id }} .career-salary input { border-radius: 0 7px 7px 0; }
-  #career-job-list-{{ block.id }} .career-upload { background: #fbfdff; border: 1px dashed #9fb0c8; border-radius: 7px; display: grid; min-height: 142px; padding: 18px; place-items: center; text-align: center; }
-  #career-job-list-{{ block.id }} .career-upload > button { background: transparent; color: #145de0; }
-  #career-job-list-{{ block.id }} .career-file { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 7px; display: flex; justify-content: space-between; margin-top: 16px; padding: 10px 12px; text-align: left; width: 100%; }
-  #career-job-list-{{ block.id }} .career-file button { background: #fff; border: 1px solid #d6dfec; color: #071436; }
-  #career-job-list-{{ block.id }} .career-consent { align-items: flex-start; display: flex; font-weight: 500; gap: 9px; margin-top: 14px; }
-  #career-job-list-{{ block.id }} .career-consent input { height: 16px; margin-top: 2px; width: 16px; }
-  #career-job-list-{{ block.id }} .career-submit { display: grid; gap: 8px; justify-items: center; margin-top: 12px; }
-  #career-job-list-{{ block.id }} .career-submit button { width: min(290px,100%); }
-  #career-job-list-{{ block.id }} .career-notice { border-radius: 7px; font-size: 14px; font-weight: 700; padding: 12px 14px; }
-  #career-job-list-{{ block.id }} .career-notice.success { background: #ecfdf5; border: 1px solid #b5ead2; color: #08784f; }
-  #career-job-list-{{ block.id }} .career-notice.error { background: #fff1f2; border: 1px solid #fecdd3; color: #be123c; }
-  #career-job-list-{{ block.id }} .career-success-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 20px; background: rgba(7, 20, 54, .42); }
-  #career-job-list-{{ block.id }} .career-success-overlay[hidden] { display: none; }
-  #career-job-list-{{ block.id }} .career-success-modal { width: min(420px, 100%); padding: 30px 28px; border: 1px solid #b5ead2; border-radius: 10px; background: #fff; box-shadow: 0 28px 90px rgba(7, 20, 54, .28); text-align: center; }
-  #career-job-list-{{ block.id }} .career-success-icon { align-items: center; background: #dcfce7; border-radius: 50%; color: #15803d; display: inline-flex; font-size: 30px; font-weight: 900; height: 58px; justify-content: center; margin-bottom: 16px; width: 58px; }
-  #career-job-list-{{ block.id }} .career-success-modal h2 { color: #071436; font-size: 22px; font-weight: 850; line-height: 28px; margin: 0; }
-  #career-job-list-{{ block.id }} .career-success-modal p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 8px 0 0; }
+  :where(#career-job-list-{{ block.id }}) { background: #f6f9fd; color: #071436; font-family: Inter, sans-serif; }
+  :where(#career-job-list-{{ block.id }}) * { box-sizing: border-box; }
+  :where(#career-job-list-{{ block.id }}) .career-hero { background: linear-gradient(90deg, rgba(238,247,255,.96), rgba(238,247,255,.7), rgba(238,247,255,.24)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center/cover; min-height: 270px; padding: 52px 20px 78px; }
+  :where(#career-job-list-{{ block.id }}) .career-shell { margin: 0 auto; max-width: 1180px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero p { color: #33415f; font-size: 14px; font-weight: 800; letter-spacing: 4px; margin: 0 0 14px; text-transform: uppercase; }
+  :where(#career-job-list-{{ block.id }}) .career-hero h1 { color: #071436; font-size: 44px; font-weight: 850; line-height: 52px; margin: 0; max-width: 680px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero span { color: #4b587c; display: block; font-size: 17px; line-height: 26px; margin-top: 12px; max-width: 560px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-tags { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 22px; }
+  :where(#career-job-list-{{ block.id }}) .career-content { padding: 0 20px 32px; }
+  :where(#career-job-list-{{ block.id }}) .career-search-panel { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 18px 44px rgba(15,23,42,.08); display: grid; gap: 14px; grid-template-columns: minmax(260px, 1fr) 170px 170px 170px 110px; margin-top: -40px; padding: 18px; }
+  :where(#career-job-list-{{ block.id }}) input, :where(#career-job-list-{{ block.id }}) select, :where(#career-job-list-{{ block.id }}) textarea { background: #fff; border: 1px solid #cfd8e6; border-radius: 7px; color: #071436; font: inherit; font-size: 14px; outline: none; width: 100%; }
+  :where(#career-job-list-{{ block.id }}) input, :where(#career-job-list-{{ block.id }}) select { height: 42px; padding: 0 14px; }
+  :where(#career-job-list-{{ block.id }}) textarea { min-height: 76px; padding: 11px; resize: vertical; }
+  :where(#career-job-list-{{ block.id }}) button, :where(#career-job-list-{{ block.id }}) .career-view-btn { align-items: center; background: #145de0; border: 0; border-radius: 7px; color: #fff; cursor: pointer; display: inline-flex; font: inherit; font-size: 14px; font-weight: 800; height: 42px; justify-content: center; padding: 0 18px; text-decoration: none; }
+  :where(#career-job-list-{{ block.id }}) .career-layout { align-items: start; display: grid; gap: 26px; grid-template-columns: minmax(0,1fr) 320px; margin-top: 22px; }
+  :where(#career-job-list-{{ block.id }}) [data-career-list-view] .career-layout { grid-template-columns: 1fr; }
+  :where(#career-job-list-{{ block.id }}) [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
+  :where(#career-job-list-{{ block.id }}) main h2 { font-size: 17px; margin: 0 0 12px; }
+  :where(#career-job-list-{{ block.id }}) .career-jobs, :where(#career-job-list-{{ block.id }}) .career-sidebar, :where(#career-job-list-{{ block.id }}) .career-detail-main, :where(#career-job-list-{{ block.id }}) .career-form { display: grid; gap: 12px; }
+  :where(#career-job-list-{{ block.id }}) .career-card { background: #fff; border: 1px solid #dfe7f2; border-radius: 10px; box-shadow: 0 14px 38px rgba(15,23,42,.04); }
+  :where(#career-job-list-{{ block.id }}) .career-job-card { align-items: center; display: grid; gap: 18px; grid-template-columns: minmax(0,1fr) auto; padding: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-round-icon, :where(#career-job-list-{{ block.id }}) .career-small-icon, :where(#career-job-list-{{ block.id }}) .career-benefit span { align-items: center; background: #eaf4ff; border-radius: 50%; color: #145de0; display: inline-flex; flex-shrink: 0; font-weight: 850; justify-content: center; }
+  :where(#career-job-list-{{ block.id }}) .career-round-icon { font-size: 16px; height: 64px; width: 64px; }
+  :where(#career-job-list-{{ block.id }}) .career-small-icon { border-radius: 8px; height: 38px; width: 38px; }
+  :where(#career-job-list-{{ block.id }}) h2, :where(#career-job-list-{{ block.id }}) h3 { color: #071436; font-weight: 850; margin: 0; }
+  :where(#career-job-list-{{ block.id }}) .career-job-card h3 { font-size: 18px; }
+  :where(#career-job-list-{{ block.id }}) p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 6px 0 0; }
+  :where(#career-job-list-{{ block.id }}) .career-job-meta, :where(#career-job-list-{{ block.id }}) .career-job-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  :where(#career-job-list-{{ block.id }}) .career-job-meta span, :where(#career-job-list-{{ block.id }}) .career-job-tags span { background: #f8fbff; border: 1px solid #d6dfec; border-radius: 6px; color: #293654; font-size: 13px; font-weight: 700; padding: 4px 10px; }
+  :where(#career-job-list-{{ block.id }}) .career-openings { background: #d9f8e8; border-radius: 999px; color: #047047; display: inline-flex; font-size: 13px; font-weight: 800; margin-bottom: 20px; padding: 7px 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-side-card, :where(#career-job-list-{{ block.id }}) .career-section, :where(#career-job-list-{{ block.id }}) .career-job-summary { padding: 18px 22px; }
+  :where(#career-job-list-{{ block.id }}) .career-side-row, :where(#career-job-list-{{ block.id }}) .career-section-heading, :where(#career-job-list-{{ block.id }}) .career-job-summary { align-items: flex-start; display: flex; gap: 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-benefit { display: flex; gap: 12px; margin-top: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-benefit span { height: 38px; width: 38px; }
+  :where(#career-job-list-{{ block.id }}) .career-safe { background: #eefcf6; border-color: #c8f2df; }
+  :where(#career-job-list-{{ block.id }}) .career-back-button { background: #b9822e; color: #fff; height: 42px; justify-content: center; padding: 0 20px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0,1fr)); margin: 18px 0 20px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card { min-height: 174px; padding: 20px; border: 1px solid #deebfb; border-radius: 9px; background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%); box-shadow: 0 12px 28px rgba(20, 93, 224, .06); }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card strong, :where(#career-job-list-{{ block.id }}) .career-detail-card span { display: block; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card strong { color: #68738e; font-size: 13px; font-weight: 800; margin: 14px 0 16px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card > span:not(.career-detail-icon) { color: #071436; font-size: 18px; font-weight: 900; line-height: 23px; white-space: pre-line; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card p { color: #53617f; font-size: 13px; line-height: 18px; margin: 8px 0 0; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-icon { align-items: center; display: inline-flex; height: 40px; justify-content: center; width: 40px; border-radius: 7px; font-size: 20px; font-weight: 900; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-icon-openings { background: #dbf7e8; color: #089657; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-icon-experience { background: #dff0ff; color: #2383ed; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-icon-qualification { background: #eee6ff; color: #7c3aed; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-icon-salary { background: #fff0dd; color: #e36b19; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text { border-top: 1px solid #e7eef7; padding-top: 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text + .career-rich-text { margin-top: 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-form-grid { display: grid; gap: 14px 26px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  :where(#career-job-list-{{ block.id }}) label { color: #071436; display: grid; font-size: 13px; font-weight: 800; gap: 7px; }
+  :where(#career-job-list-{{ block.id }}) b { color: #e11d2f; }
+  :where(#career-job-list-{{ block.id }}) .career-full { grid-column: 1 / -1; }
+  :where(#career-job-list-{{ block.id }}) small { color: #4b587c; font-size: 12px; font-weight: 500; }
+  :where(#career-job-list-{{ block.id }}) .career-count { text-align: right; }
+  :where(#career-job-list-{{ block.id }}) .career-salary { display: flex; }
+  :where(#career-job-list-{{ block.id }}) .career-salary em { align-items: center; background: #f8fbff; border: 1px solid #cfd8e6; border-radius: 7px 0 0 7px; border-right: 0; display: inline-flex; font-style: normal; font-weight: 800; justify-content: center; width: 42px; }
+  :where(#career-job-list-{{ block.id }}) .career-salary input { border-radius: 0 7px 7px 0; }
+  :where(#career-job-list-{{ block.id }}) .career-upload { background: #fbfdff; border: 1px dashed #9fb0c8; border-radius: 7px; display: grid; min-height: 142px; padding: 18px; place-items: center; text-align: center; }
+  :where(#career-job-list-{{ block.id }}) .career-upload > button { background: transparent; color: #145de0; }
+  :where(#career-job-list-{{ block.id }}) .career-file { align-items: center; background: #fff; border: 1px solid #dfe7f2; border-radius: 7px; display: flex; justify-content: space-between; margin-top: 16px; padding: 10px 12px; text-align: left; width: 100%; }
+  :where(#career-job-list-{{ block.id }}) .career-file button { background: #fff; border: 1px solid #d6dfec; color: #071436; }
+  :where(#career-job-list-{{ block.id }}) .career-consent { align-items: flex-start; display: flex; font-weight: 500; gap: 9px; margin-top: 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-consent input { height: 16px; margin-top: 2px; width: 16px; }
+  :where(#career-job-list-{{ block.id }}) .career-submit { display: grid; gap: 8px; justify-items: center; margin-top: 12px; }
+  :where(#career-job-list-{{ block.id }}) .career-submit button { width: min(290px,100%); }
+  :where(#career-job-list-{{ block.id }}) .career-notice { border-radius: 7px; font-size: 14px; font-weight: 700; padding: 12px 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-notice.success { background: #ecfdf5; border: 1px solid #b5ead2; color: #08784f; }
+  :where(#career-job-list-{{ block.id }}) .career-notice.error { background: #fff1f2; border: 1px solid #fecdd3; color: #be123c; }
+  :where(#career-job-list-{{ block.id }}) .career-success-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 20px; background: rgba(7, 20, 54, .42); }
+  :where(#career-job-list-{{ block.id }}) .career-success-overlay[hidden] { display: none; }
+  :where(#career-job-list-{{ block.id }}) .career-success-modal { width: min(420px, 100%); padding: 30px 28px; border: 1px solid #b5ead2; border-radius: 10px; background: #fff; box-shadow: 0 28px 90px rgba(7, 20, 54, .28); text-align: center; }
+  :where(#career-job-list-{{ block.id }}) .career-success-icon { align-items: center; background: #dcfce7; border-radius: 50%; color: #15803d; display: inline-flex; font-size: 30px; font-weight: 900; height: 58px; justify-content: center; margin-bottom: 16px; width: 58px; }
+  :where(#career-job-list-{{ block.id }}) .career-success-modal h2 { color: #071436; font-size: 22px; font-weight: 850; line-height: 28px; margin: 0; }
+  :where(#career-job-list-{{ block.id }}) .career-success-modal p { color: #4b587c; font-size: 14px; line-height: 21px; margin: 8px 0 0; }
 
-  #career-job-list-{{ block.id }} { background: radial-gradient(circle at 88% 35%, rgba(219, 234, 254, .72), transparent 34%), linear-gradient(180deg, #f7fbff 0%, #eef7ff 100%); color: #071436; min-height: 100vh; }
-  #career-job-list-{{ block.id }} .career-hero { background: linear-gradient(90deg, rgba(239,247,255,.98) 0%, rgba(230,241,255,.72) 42%, rgba(247,250,255,.10) 70%), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85") center 42%/cover; min-height: 210px; padding: 34px 20px 28px; }
-  #career-job-list-{{ block.id }} .career-hero-inner { position: relative; }
-  #career-job-list-{{ block.id }} .career-hero-copy { max-width: 760px; }
-  #career-job-list-{{ block.id }} .career-hero p:not(.career-hero-note) { color: #071436; font-size: 13px; font-weight: 950; letter-spacing: .24em; margin: 0 0 10px; text-transform: uppercase; }
-  #career-job-list-{{ block.id }} .career-hero h1 { color: #071436; font-size: clamp(34px, 5vw, 50px); font-weight: 950; letter-spacing: 0; line-height: 1.04; margin: 0; max-width: 720px; }
-  #career-job-list-{{ block.id }} .career-hero h1 span { color: #7765ff; display: inline; font-size: inherit; line-height: inherit; margin: 0; max-width: none; }
-  #career-job-list-{{ block.id }} .career-hero-copy > div { color: #465a86; font-size: 17px; line-height: 25px; margin-top: 13px; max-width: 610px; }
-  #career-job-list-{{ block.id }} .career-hero-tags { gap: 28px; margin-top: 18px; }
-  #career-job-list-{{ block.id }} .career-hero-tags strong { align-items: center; color: #071436; display: inline-flex; font-size: 13px; gap: 9px; }
-  #career-job-list-{{ block.id }} .career-hero-tags span { align-items: center; background: #e8f1ff; border-radius: 50%; color: #1769ff; display: inline-flex; font-size: 15px; height: 30px; justify-content: center; margin: 0; width: 30px; }
-  #career-job-list-{{ block.id }} .career-hero-note { color: #145de0; font-size: 16px; font-style: italic; font-weight: 900; line-height: 21px; position: absolute; right: 0; text-align: center; top: 28px; transform: rotate(-12deg); }
-  #career-job-list-{{ block.id }} .career-content { padding: 12px 20px 0; }
-  #career-job-list-{{ block.id }} .career-layout { gap: 18px; grid-template-columns: minmax(0, 1fr) 300px; margin-top: 12px; }
-  #career-job-list-{{ block.id }} [data-career-list-view] .career-layout, #career-job-list-{{ block.id }} [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
-  #career-job-list-{{ block.id }} .career-card { border-color: #dce8f7; border-radius: 10px; box-shadow: 0 18px 50px rgba(40, 86, 140, .07); }
-  #career-job-list-{{ block.id }} .career-back-button { color: #1769ff; font-size: 13px; font-weight: 900; margin-bottom: 10px; }
-  #career-job-list-{{ block.id }} .career-job-summary { align-items: center; display: grid; grid-template-columns: minmax(0,1fr) auto; margin-bottom: 12px; padding: 18px; }
-  #career-job-list-{{ block.id }} .career-job-summary h2 { font-size: 22px; line-height: 28px; margin: 0 0 6px; }
-  #career-job-list-{{ block.id }} .career-round-icon { background: #e5f6ff; color: #1797e8; font-size: 15px; height: 54px; width: 54px; }
-  #career-job-list-{{ block.id }} .career-job-tags { gap: 9px; margin-top: 7px; }
-  #career-job-list-{{ block.id }} .career-job-tags span { background: #f9fbff; border-color: #c9d9ef; border-radius: 7px; color: #1e315a; font-size: 12px; padding: 5px 14px; }
-  #career-job-list-{{ block.id }} .career-apply-now { background: #fff; border: 1px solid #1769ff; color: #1769ff; min-width: 150px; }
-  #career-job-list-{{ block.id }} .career-section { padding: 18px; }
-  #career-job-list-{{ block.id }} .career-section-heading { margin-bottom: 10px; }
-  #career-job-list-{{ block.id }} .career-small-icon { background: #eaf2ff; border-radius: 9px; color: #1769ff; font-size: 13px; height: 40px; width: 40px; }
-  #career-job-list-{{ block.id }} .career-small-icon.orange { background: #fff0df; color: #f97316; }
-  #career-job-list-{{ block.id }} .career-section-heading h2 { font-size: 18px; line-height: 24px; margin: 0; }
-  #career-job-list-{{ block.id }} .career-section-heading p { font-size: 13px; margin-top: 2px; }
-  #career-job-list-{{ block.id }} .career-detail-grid { gap: 12px; margin: 14px 0 0; }
-  #career-job-list-{{ block.id }} .career-detail-card { min-height: 170px; padding: 19px; }
-  #career-job-list-{{ block.id }} .career-detail-card strong { font-size: 13px; margin: 13px 0 17px; }
-  #career-job-list-{{ block.id }} .career-detail-card > span:not(.career-detail-icon) { font-size: 18px; font-weight: 950; line-height: 22px; }
-  #career-job-list-{{ block.id }} .career-rich-text { align-items: flex-start; border-top: 0; display: grid; gap: 14px; grid-template-columns: 42px minmax(0,1fr); margin-top: 14px; padding: 18px; }
-  #career-job-list-{{ block.id }} .career-rich-text h3 { font-size: 18px; line-height: 23px; margin-bottom: 4px; }
-  #career-job-list-{{ block.id }} .career-rich-text p { color: #334a75; font-size: 14px; line-height: 20px; white-space: pre-line; }
-  #career-job-list-{{ block.id }} .career-rich-text p::first-letter { text-transform: uppercase; }
-  #career-job-list-{{ block.id }} .career-form { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
-  #career-job-list-{{ block.id }} .career-form .career-section { align-self: start; }
-  #career-job-list-{{ block.id }} .career-form .career-section { grid-column: 1 / -1; }
-  #career-job-list-{{ block.id }} .career-form-grid { gap: 12px 24px; }
-  #career-job-list-{{ block.id }} label { font-size: 12px; gap: 6px; }
-  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select, #career-job-list-{{ block.id }} textarea { border-color: #cbd9ed; border-radius: 6px; font-size: 13px; }
-  #career-job-list-{{ block.id }} input, #career-job-list-{{ block.id }} select { height: 34px; padding: 0 12px; }
-  #career-job-list-{{ block.id }} textarea { min-height: 94px; }
-  #career-job-list-{{ block.id }} .career-upload { min-height: 130px; }
-  #career-job-list-{{ block.id }} .career-submit button { background: #1769ff; border-radius: 8px; height: 38px; width: 230px; }
-  #career-job-list-{{ block.id }} .career-side-card { padding: 22px; }
-  #career-job-list-{{ block.id }} .career-help-card a { align-items: center; border: 1px solid #1769ff; border-radius: 7px; color: #1769ff; display: inline-flex; font-size: 13px; font-weight: 900; height: 36px; justify-content: center; margin-top: 14px; padding: 0 22px; text-decoration: none; width: 100%; }
-  #career-job-list-{{ block.id }} .career-safe { background: #effdf7; border-color: #c8f2df; }
-  #career-job-list-{{ block.id }} .career-quote-card { background: radial-gradient(circle at 88% 28%, rgba(226, 214, 255, .92), transparent 31%), #f7fbff; min-height: 190px; padding: 28px; }
-  #career-job-list-{{ block.id }} .career-quote-card strong { color: #6296ff; display: block; font-size: 42px; height: 28px; line-height: 32px; }
-  #career-job-list-{{ block.id }} .career-quote-card h3 { font-size: 22px; line-height: 30px; margin-top: 12px; }
-  #career-job-list-{{ block.id }} .career-benefit span { border-radius: 9px; font-size: 14px; height: 38px; width: 38px; }
-  #career-job-list-{{ block.id }} .career-benefit strong { color: #071436; font-size: 14px; }
-  #career-job-list-{{ block.id }} .career-benefit p { font-size: 12px; margin-top: 2px; }
-  @media (max-width: 980px) { #career-job-list-{{ block.id }} .career-search-panel, #career-job-list-{{ block.id }} .career-layout { grid-template-columns: 1fr; } #career-job-list-{{ block.id }} .career-detail-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-  @media (max-width: 720px) { #career-job-list-{{ block.id }} .career-hero h1 { font-size: 34px; line-height: 40px; } #career-job-list-{{ block.id }} .career-hero-note { display: none; } #career-job-list-{{ block.id }} .career-job-card, #career-job-list-{{ block.id }} .career-form, #career-job-list-{{ block.id }} .career-form-grid, #career-job-list-{{ block.id }} .career-detail-grid, #career-job-list-{{ block.id }} .career-job-summary { grid-template-columns: 1fr; } #career-job-list-{{ block.id }} .career-full { grid-column: auto; } #career-job-list-{{ block.id }} .career-apply-now { width: 100%; } }
+  :where(#career-job-list-{{ block.id }}) { background: radial-gradient(circle at 88% 35%, rgba(219, 234, 254, .72), transparent 34%), linear-gradient(180deg, #f7fbff 0%, #eef7ff 100%); color: #071436; min-height: 100vh; }
+  :where(#career-job-list-{{ block.id }}) .career-hero { background: linear-gradient(90deg, rgba(239,247,255,.98) 0%, rgba(230,241,255,.72) 42%, rgba(247,250,255,.10) 70%), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85") center 42%/cover; min-height: 210px; padding: 34px 20px 28px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-inner { position: relative; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-copy { max-width: 760px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero p:not(.career-hero-note) { color: #071436; font-size: 13px; font-weight: 950; letter-spacing: .24em; margin: 0 0 10px; text-transform: uppercase; }
+  :where(#career-job-list-{{ block.id }}) .career-hero h1 { color: #071436; font-size: clamp(34px, 5vw, 50px); font-weight: 950; letter-spacing: 0; line-height: 1.04; margin: 0; max-width: 720px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero h1 span { color: #7765ff; display: inline; font-size: inherit; line-height: inherit; margin: 0; max-width: none; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-copy > div { color: #465a86; font-size: 17px; line-height: 25px; margin-top: 13px; max-width: 610px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-tags { gap: 28px; margin-top: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-tags strong { align-items: center; color: #071436; display: inline-flex; font-size: 13px; gap: 9px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-tags span { align-items: center; background: #e8f1ff; border-radius: 50%; color: #1769ff; display: inline-flex; font-size: 15px; height: 30px; justify-content: center; margin: 0; width: 30px; }
+  :where(#career-job-list-{{ block.id }}) .career-hero-note { color: #145de0; font-size: 16px; font-style: italic; font-weight: 900; line-height: 21px; position: absolute; right: 0; text-align: center; top: 28px; transform: rotate(-12deg); }
+  :where(#career-job-list-{{ block.id }}) .career-content { padding: 12px 20px 0; }
+  :where(#career-job-list-{{ block.id }}) .career-layout { gap: 18px; grid-template-columns: minmax(0, 1fr) 300px; margin-top: 12px; }
+  :where(#career-job-list-{{ block.id }}) [data-career-list-view] .career-layout, :where(#career-job-list-{{ block.id }}) [data-career-detail-view] .career-layout { grid-template-columns: 1fr; }
+  :where(#career-job-list-{{ block.id }}) .career-card { border-color: #dce8f7; border-radius: 10px; box-shadow: 0 18px 50px rgba(40, 86, 140, .07); }
+  :where(#career-job-list-{{ block.id }}) .career-back-button { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+  :where(#career-job-list-{{ block.id }}) .career-job-summary { align-items: center; display: grid; grid-template-columns: minmax(0,1fr) auto; margin-bottom: 12px; padding: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-job-summary h2 { font-size: 22px; line-height: 28px; margin: 0 0 6px; }
+  :where(#career-job-list-{{ block.id }}) .career-round-icon { background: #e5f6ff; color: #1797e8; font-size: 15px; height: 54px; width: 54px; }
+  :where(#career-job-list-{{ block.id }}) .career-job-tags { gap: 9px; margin-top: 7px; }
+  :where(#career-job-list-{{ block.id }}) .career-job-tags span { background: #f9fbff; border-color: #c9d9ef; border-radius: 7px; color: #1e315a; font-size: 12px; padding: 5px 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-apply-now { background: #b9822e; border: 1px solid #b9822e; color: #fff; min-width: 150px; }
+  :where(#career-job-list-{{ block.id }}) .career-section { padding: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-section-heading { margin-bottom: 10px; }
+  :where(#career-job-list-{{ block.id }}) .career-small-icon { background: #eaf2ff; border-radius: 9px; color: #1769ff; font-size: 13px; height: 40px; width: 40px; }
+  :where(#career-job-list-{{ block.id }}) .career-small-icon.orange { background: #fff0df; color: #f97316; }
+  :where(#career-job-list-{{ block.id }}) .career-section-heading h2 { font-size: 18px; line-height: 24px; margin: 0; }
+  :where(#career-job-list-{{ block.id }}) .career-section-heading p { font-size: 13px; margin-top: 2px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-grid { gap: 12px; margin: 14px 0 0; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card { min-height: 170px; padding: 19px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card strong { font-size: 13px; margin: 13px 0 17px; }
+  :where(#career-job-list-{{ block.id }}) .career-detail-card > span:not(.career-detail-icon) { font-size: 18px; font-weight: 950; line-height: 22px; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text { align-items: flex-start; border-top: 0; display: grid; gap: 14px; grid-template-columns: 42px minmax(0,1fr); margin-top: 14px; padding: 18px; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text h3 { font-size: 18px; line-height: 23px; margin-bottom: 4px; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text p { color: #334a75; font-size: 14px; line-height: 20px; white-space: pre-line; }
+  :where(#career-job-list-{{ block.id }}) .career-rich-text p::first-letter { text-transform: uppercase; }
+  :where(#career-job-list-{{ block.id }}) .career-form { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  :where(#career-job-list-{{ block.id }}) .career-form .career-section { align-self: start; }
+  :where(#career-job-list-{{ block.id }}) .career-form .career-section { grid-column: 1 / -1; }
+  :where(#career-job-list-{{ block.id }}) .career-form-grid { gap: 12px 24px; }
+  :where(#career-job-list-{{ block.id }}) label { font-size: 12px; gap: 6px; }
+  :where(#career-job-list-{{ block.id }}) input, :where(#career-job-list-{{ block.id }}) select, :where(#career-job-list-{{ block.id }}) textarea { border-color: #cbd9ed; border-radius: 6px; font-size: 13px; }
+  :where(#career-job-list-{{ block.id }}) input, :where(#career-job-list-{{ block.id }}) select { height: 34px; padding: 0 12px; }
+  :where(#career-job-list-{{ block.id }}) textarea { min-height: 94px; }
+  :where(#career-job-list-{{ block.id }}) .career-upload { min-height: 130px; }
+  :where(#career-job-list-{{ block.id }}) .career-submit button { background: #1769ff; border-radius: 8px; height: 38px; width: 230px; }
+  :where(#career-job-list-{{ block.id }}) .career-side-card { padding: 22px; }
+  :where(#career-job-list-{{ block.id }}) .career-help-card a { align-items: center; border: 1px solid #1769ff; border-radius: 7px; color: #1769ff; display: inline-flex; font-size: 13px; font-weight: 900; height: 36px; justify-content: center; margin-top: 14px; padding: 0 22px; text-decoration: none; width: 100%; }
+  :where(#career-job-list-{{ block.id }}) .career-safe { background: #effdf7; border-color: #c8f2df; }
+  :where(#career-job-list-{{ block.id }}) .career-quote-card { background: radial-gradient(circle at 88% 28%, rgba(226, 214, 255, .92), transparent 31%), #f7fbff; min-height: 190px; padding: 28px; }
+  :where(#career-job-list-{{ block.id }}) .career-quote-card strong { color: #6296ff; display: block; font-size: 42px; height: 28px; line-height: 32px; }
+  :where(#career-job-list-{{ block.id }}) .career-quote-card h3 { font-size: 22px; line-height: 30px; margin-top: 12px; }
+  :where(#career-job-list-{{ block.id }}) .career-benefit span { border-radius: 9px; font-size: 14px; height: 38px; width: 38px; }
+  :where(#career-job-list-{{ block.id }}) .career-benefit strong { color: #071436; font-size: 14px; }
+  :where(#career-job-list-{{ block.id }}) .career-benefit p { font-size: 12px; margin-top: 2px; }
+  @media (max-width: 980px) { :where(#career-job-list-{{ block.id }}) .career-search-panel, :where(#career-job-list-{{ block.id }}) .career-layout { grid-template-columns: 1fr; } :where(#career-job-list-{{ block.id }}) .career-detail-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 720px) { :where(#career-job-list-{{ block.id }}) .career-hero h1 { font-size: 34px; line-height: 40px; } :where(#career-job-list-{{ block.id }}) .career-hero-note { display: none; } :where(#career-job-list-{{ block.id }}) .career-job-card, :where(#career-job-list-{{ block.id }}) .career-form, :where(#career-job-list-{{ block.id }}) .career-form-grid, :where(#career-job-list-{{ block.id }}) .career-detail-grid, :where(#career-job-list-{{ block.id }}) .career-job-summary { grid-template-columns: 1fr; } :where(#career-job-list-{{ block.id }}) .career-full { grid-column: auto; } :where(#career-job-list-{{ block.id }}) .career-apply-now { width: 100%; } }
+  #career-job-list-{{ block.id }} .career-detail-navigation { display: flex; justify-content: flex-end; padding-top: 18px; }
+  #career-job-list-{{ block.id }} button.career-back-button,
+  #career-job-list-{{ block.id }} button.career-apply-now { background: linear-gradient(120deg, #bf8c38, #b17a2d); border: 1px solid #b9822e; border-radius: 8px; color: #fff !important; -webkit-text-fill-color: #fff !important; font-size: 14px; font-weight: 600; height: 42px; min-width: 150px; width: auto; padding: 0 20px; justify-content: center; text-decoration: none; }
+  #career-job-list-{{ block.id }} button.career-back-button { margin: 0; }
+  #career-job-list-{{ block.id }} button.career-apply-now { justify-self: end; }
 </style>
+{{ 'career-gemstones.css' | asset_url | stylesheet_tag }}
 
 <script>
   (() => {
     const root = document.getElementById("career-job-list-{{ block.id }}");
     if (!root) return;
 
+    const iconPaths = {"gem": "<path d=\"m3 8 4-5h10l4 5-9 13L3 8Zm0 0h18M7 3l5 18 5-18M7 3l5 5 5-5\"/>", "people": "<circle cx=\"9\" cy=\"7\" r=\"3\"/><path d=\"M3 21v-3a6 6 0 0 1 12 0v3H3Zm14-17a3 3 0 0 1 0 6m1 4a5 5 0 0 1 3 4v3h-3\"/>", "globe": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><ellipse cx=\"12\" cy=\"12\" rx=\"4\" ry=\"10\"/><path d=\"M2 12h20M4 6h16M4 18h16\"/>", "search": "<circle cx=\"10.5\" cy=\"10.5\" r=\"7.5\"/><path d=\"m16 16 5 5\"/>", "building": "<path d=\"M3 21h18M5 21V3h9v18m0-13h5v13M8 7h3M8 11h3M8 15h3M8 19h3m8-7h-2m2 4h-2\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M8 7V3h8v4M3 12a27 27 0 0 0 18 0M10 12h4v4h-4z\"/>", "pin": "<path d=\"M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2\"/>"};
+    const icon = (name) => `<svg class="career-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || ""}</svg>`;
     const proxyBase = root.dataset.proxyBase || "/apps/careers";
     const listView = root.querySelector("[data-career-list-view]");
     const detailView = root.querySelector("[data-career-detail-view]");
@@ -501,6 +516,7 @@
       });
 
       count.textContent = filteredJobs.length;
+      root.querySelector("[data-career-positions-label]").textContent = filteredJobs.length === 1 ? "Open Position" : "Open Positions";
       if (filteredJobs.length === 0) {
         jobsWrap.innerHTML = `<article class="career-card career-job-card"><div class="career-round-icon">0</div><div><h3>No open positions found</h3><p>Try changing your search or filters.</p></div></article>`;
         return;
@@ -510,16 +526,16 @@
         <article class="career-card career-job-card">
           <div>
             <h3>${escapeHtml(job.jobTitle)}</h3>
-            <p>${escapeHtml(job.department)}</p>
+            <p class="career-department">${icon("building")}${escapeHtml(job.department)}</p>
             <div class="career-job-meta">
-              <span>${escapeHtml(job.employmentType)}</span>
-              <span>${escapeHtml(job.location)}</span>
-              <span>${escapeHtml(job.shiftSchedule)}</span>
+              <span>${icon("briefcase")}${escapeHtml(job.employmentType)}</span>
+              <span>${icon("pin")}${escapeHtml(job.location)}</span>
+              <span>${icon("sun")}${escapeHtml(job.shiftSchedule)}</span>
             </div>
           </div>
-          <div>
-            <span class="career-openings">${Number(job.numberOfOpenings || 1)} ${Number(job.numberOfOpenings || 1) === 1 ? "Opening" : "Openings"}</span>
-            <button type="button" class="career-view-btn" data-career-view-job="${escapeHtml(job.id)}">View Details -&gt;</button>
+          <div class="career-job-actions">
+            <span class="career-openings">${icon("people")}${Number(job.numberOfOpenings || 1)} ${Number(job.numberOfOpenings || 1) === 1 ? "Opening" : "Openings"}</span>
+            <button type="button" class="career-view-btn" data-career-view-job="${escapeHtml(job.id)}">View Details <span aria-hidden="true">&rarr;</span></button>
           </div>
         </article>
       `).join("");
@@ -637,22 +653,71 @@
   "target": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Career banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
       "type": "text",
-      "id": "brand_name",
-      "label": "Brand name",
-      "default": "Shabdd"
+      "id": "eyebrow",
+      "label": "Banner eyebrow",
+      "default": "Build your future with us"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "Build Your Future With Us"
+      "label": "Banner heading",
+      "default": "Careers at Raza Gems"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Banner description",
+      "default": "Be part of a passionate team that values authenticity, quality and the timeless beauty of gemstones. Explore opportunities to grow, create and make a global impact with us."
     },
     {
       "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Be part of a team that creates meaningful experiences and explores a better tomorrow."
+      "id": "feature_1_title",
+      "label": "Benefit 1 heading",
+      "default": "Meaningful Work"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "Benefit 1 description",
+      "default": "Contribute to a global jewelry brand"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Benefit 2 heading",
+      "default": "Grow Your Career"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "Benefit 2 description",
+      "default": "Learn and develop new skills"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_title",
+      "label": "Benefit 3 heading",
+      "default": "Make an Impact"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "Benefit 3 description",
+      "default": "Bring natural beauty to the world"
+    },
+    {
+      "type": "header",
+      "content": "App connection"
     },
     {
       "type": "text",
