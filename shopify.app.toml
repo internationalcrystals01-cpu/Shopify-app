@@ -14,10 +14,10 @@ redirect_urls = [
   "https://shopify-app-0f86.onrender.com/auth/callback"
 ]
 
-[app_proxy]
-url = "/apps/careers"
-prefix = "apps"
-subpath = "careers"
+  [app_proxy]
+  url = "/apps/careers"
+  prefix = "apps"
+  subpath = "careers"
 
 [webhooks]
 api_version = "2026-10"
