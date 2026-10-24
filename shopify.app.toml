@@ -1,4 +1,5 @@
-# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+# Learn more about configuring your app at:
+# https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "9b2c675f0c2068b4eb14e64627410863"
 application_url = "https://shopify-app-0f86.onrender.com"
@@ -6,14 +7,20 @@ embedded = true
 name = "Shabdd-career-app"
 
 [access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,write_metaobjects,write_metaobject_definitions"
+scopes = "write_products,write_metaobjects,write_metaobject_definitions,write_app_proxy"
 
 [auth]
-redirect_urls = [ "https://shopify-app-0f86.onrender.com/auth/callback" ]
+redirect_urls = [
+  "https://shopify-app-0f86.onrender.com/auth/callback"
+]
+
+[app_proxy]
+url = "/apps/careers"
+prefix = "apps"
+subpath = "careers"
 
 [webhooks]
 api_version = "2026-10"
 
 [build]
-automatically_update_urls_on_dev = true
+automatically_update_urls_on_dev = false
