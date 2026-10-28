@@ -1,0 +1,8 @@
+body,
+body * {
+  font-family: "Jost", sans-serif;
+}
+
+input::file-selector-button {
+  font-family: inherit;
+}

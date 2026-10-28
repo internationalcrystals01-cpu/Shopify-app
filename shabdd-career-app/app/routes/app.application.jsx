@@ -292,7 +292,7 @@ export default function Applications() {
           padding: 18px 20px;
           background: #f6f8fb;
           color: #071436;
-          font-family: Inter, sans-serif;
+          font-family: "Jost", sans-serif;
           margin-left: calc(50% - 50vw + 48px);
           margin-right: 48px;
         }
@@ -1410,7 +1410,7 @@ function ApplicationDetailStyles() {
         margin-right: 48px;
         padding: 24px 34px;
         color: #071436;
-        font-family: Inter, sans-serif;
+        font-family: "Jost", sans-serif;
       }
 
       .application-detail-page {

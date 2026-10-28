@@ -536,7 +536,7 @@ export default function CreateJob() {
           background: #ffffff;
           color: #303030;
 
-          font-family: Inter, sans-serif;
+          font-family: "Jost", sans-serif;
           font-size: 13px;
 
           outline: none;

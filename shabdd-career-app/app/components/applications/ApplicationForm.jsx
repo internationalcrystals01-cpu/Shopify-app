@@ -51,7 +51,7 @@ export default function ApplicationForm({ job }) {
           margin: 0;
           background: #f6f9fd;
           color: #071436;
-          font-family: Inter, sans-serif;
+          font-family: "Jost", sans-serif;
         }
 
         .candidate-apply-page {
